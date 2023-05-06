@@ -1,2 +1,2 @@
 # JP_Anime_SC_subs
-Personal subtitle library, you can find me at lazybee@shyeysnow/acgrip(vcb-s)/U2
+自用字幕库，你可以着这些地方找到我：lazybee@shyeysnow/acgrip(vcb-s)/U2
