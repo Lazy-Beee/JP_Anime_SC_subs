@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--ShanaEncoder-->
+<Settings>
+  <inputparamBox />
+  <prefixtextBox />
+  <extensiontextBox>HEVC-Q18-10bit.mkv</extensiontextBox>
+  <filterparamBoxV> -vf "shanasubtitle=0"</filterparamBoxV>
+  <filterparamBoxA />
+  <encparamBox> -f mkv
+ -c:v libx265 -preset medium -tune:v ssim -crf 18.0 -shanakeyframe 10 -libx265main10
+ -c:a libfdk_aac -b:a 128k
+ -sn -map_metadata -1 -map_chapters 0 -vsync cfr</encparamBox>
+  <x264optsBox />
+  <substyle>Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,,22,&amp;H00FFFFFF,&amp;H0000FFFF,&amp;H00000000,&amp;H80000000,-1,0,0,0,100,100,0,0,1,0.5,1,2,10,10,20,1</substyle>
+  <fontnameSE />
+  <Logo>
+    <logochk>False</logochk>
+    <logopath />
+    <logoalign>7</logoalign>
+    <logox>5</logox>
+    <logoy>5</logoy>
+    <logow>0</logow>
+    <logoh>0</logoh>
+    <logos>1</logos>
+    <logosd>1</logosd>
+    <logoe>9</logoe>
+    <logoed>1</logoed>
+    <logoschk>True</logoschk>
+    <logoechk>True</logoechk>
+  </Logo>
+</Settings>
