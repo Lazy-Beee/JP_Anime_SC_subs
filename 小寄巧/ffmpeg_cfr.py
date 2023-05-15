@@ -39,5 +39,5 @@ def run_ffmpeg(folder_path):
 
 if __name__ == '__main__':
     folder_path = os.getcwd()
-    run_ffmpeg(folder_path, out_option='video_dir')
+    run_ffmpeg(folder_path)
     input("Complete")
