@@ -16,7 +16,7 @@ def merge_single(mkv_list, ass_list, source_dir, dump_dir):
     os.rename(ass_path, ass_path_dump)
     subprocess.run([mkvmerge_path,
                     '--output', mkv_path,
-                    '--no-subtitles', mkv_path_dump, 
+                    '--no-subtitles', '--no-attachments', mkv_path_dump, 
                     '--language', '0:zh-CN', '--default-track', '0:yes', '--track-name', '0:简体中文', ass_path_dump]) # 这里设置单字幕字幕轨的参数
     print(f'任务 {i+1} 混流完毕')
 
@@ -37,7 +37,7 @@ def merge_double(mkv_list, ass_list, source_dir, dump_dir):
     os.rename(ass2_path, ass2_path_dump)
     subprocess.run([mkvmerge_path,
                     '--output', mkv_path,
-                    '--no-subtitles', mkv_path_dump,
+                    '--no-subtitles', '--no-attachments', mkv_path_dump,
                     '--language', '0:zh-CN', '--default-track', '0:yes', '--track-name', '0:简体中文', ass1_path_dump, # 这里设置双字幕字幕轨1的参数
                     '--language', '0:zh-TW', '--default-track', '0:no', '--track-name', '0:繁体中文', ass2_path_dump]) # 这里设置双字幕字幕轨2的参数
     print(f'任务 {i+1} 混流完毕')
