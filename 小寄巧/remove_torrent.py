@@ -1,4 +1,5 @@
-import qbittorrentapi as qb
+from qbittorrentapi import Client
+from math import ceil, floor
 from wcwidth import wcswidth
 from tabulate import tabulate
 
@@ -60,13 +61,14 @@ def process_torrents(main_data, qbc, free_space):
             tdata[name]['seed_time'] = seed_time
         tdata[name]['total_seeds'][site_id] = total_seeds
 
-        if count > 50: break
+        #if count > 50: break
 
     print(f"\nFree disk space: {free_space} GB\n")
 
     return {key: value for key, value in sorted(tdata.items(), key=lambda item: item[1]['seed_time'], reverse=True)}
 
 def display_torrents(tlist, start, step_size):
+    title_width = 100
     table = []
     display_list = []
 
@@ -82,13 +84,13 @@ def display_torrents(tlist, start, step_size):
         #     continue
 
         line = [str(count) + "/" + str(i)]
-        if wcswidth(torrent['name']) <= 50:
+        if wcswidth(torrent['name']) <= title_width:
             line.append(torrent['name'])
         else:
-            front = 30
-            rear = 15
+            front = ceil(title_width * 2/3)
+            rear = ceil(title_width * 1/3)
             string = torrent['name'][:front] + " ... " + torrent['name'][-rear:]
-            while wcswidth(string) > 50:
+            while wcswidth(string) > title_width:
                 front -= 1
                 rear -= 1
                 string = torrent['name'][:front] + " ... " + torrent['name'][-rear:]
@@ -98,7 +100,7 @@ def display_torrents(tlist, start, step_size):
 
         for j in range(3):
             if torrent['total_seeds'][j] == -1:
-                line.append("x")
+                line.append("-")
             else:
                 line.append(torrent['total_seeds'][j])
         table.append(line)
@@ -111,8 +113,7 @@ def display_torrents(tlist, start, step_size):
 
     return display_list
 
-def remove_torrents(tlist, qbc, start, free_space, total_remove):
-    step_size = 10
+def remove_torrents(tlist, qbc, start, step_size, free_space, total_remove):
     display_list = display_torrents(tlist, start, step_size)
     if len(display_list) == 0:
         return
@@ -154,20 +155,19 @@ def remove_torrents(tlist, qbc, start, free_space, total_remove):
     if len(display_list) < step_size:
         return
 
-    remove_torrents(tlist, qbc, display_list[-1] + 1, free_space, total_remove)
+    remove_torrents(tlist, qbc, display_list[-1] + 1, step_size, free_space, total_remove)
 
 if __name__ == "__main__":
 
-    # Connect with qBittorrent client and get main data
-    # qbc = qb.Client(host="localhost", port=8080, username="", password="")
-    qbc = qb.Client(host=input('host: '), port=input('port: '), username=input('username: '), password=input('password: '))
+    # qbc = Client(host="localhost", port=8080, username="", password="")
+    qbc = Client(host=input('host: '), port=input('port: '), username=input('username: '), password=input('password: '))
     main_data, free_space = client_info(qbc)
 
     # Organize torrent data
     tdata = process_torrents(main_data, qbc, free_space)
 
     # Display and remove torrent
-    remove_torrents(list(tdata.values()), qbc, 0, free_space, 0)
+    remove_torrents(list(tdata.values()), qbc, 0, 25, free_space, 0.0)
 
     # Log out connection
     qbc.auth_log_out()
