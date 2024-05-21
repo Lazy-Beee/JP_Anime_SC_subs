@@ -45,6 +45,7 @@ def merge_double(mkv_list, ass_list, source_dir, dump_dir):
 def merge(source_dir=""):
   if source_dir == "":
     source_dir = input('目标文件夹 > ').replace('\"','')
+  print(f"\n开始处理源文件夹: {source_dir}")
   dump_dir = source_dir + '\dump'
   os.makedirs(dump_dir, exist_ok=True)
 
@@ -72,9 +73,10 @@ def merge(source_dir=""):
   print(f'\n{len(mkv_list)}个任务全部混流完毕！')
 
 if __name__ == '__main__':
-  if len(sys.argv) < 3:
+  if len(sys.argv) < 2:
     merge()
     while (input('再来一轮? [y/N]') == 'y'):
       merge()
   else:
-    merge(sys.argv[2])
+    for source_dir in sys.argv[1:]:
+      merge(source_dir)
