@@ -1,4 +1,4 @@
-import os, subprocess
+import sys, os, subprocess
 
 # mkvmerge.exe的路径，可以在mkvtoolnix安装文件夹中找到
 mkvmerge_path = 'F:/Encode tools/mkvmerge.exe'
@@ -42,8 +42,9 @@ def merge_double(mkv_list, ass_list, source_dir, dump_dir):
                     '--language', '0:zh-TW', '--default-track', '0:no', '--track-name', '0:繁体中文', ass2_path_dump]) # 这里设置双字幕字幕轨2的参数
     print(f'任务 {i+1} 混流完毕')
 
-def merge():
-  source_dir = input('目标文件夹 > ').replace('\"','')
+def merge(source_dir=""):
+  if source_dir == "":
+    source_dir = input('目标文件夹 > ').replace('\"','')
   dump_dir = source_dir + '\dump'
   os.makedirs(dump_dir, exist_ok=True)
 
@@ -71,6 +72,9 @@ def merge():
   print(f'\n{len(mkv_list)}个任务全部混流完毕！')
 
 if __name__ == '__main__':
-  merge()
-  while (input('再来一轮? [y/N]') == 'y'):
+  if len(sys.argv) < 3:
     merge()
+    while (input('再来一轮? [y/N]') == 'y'):
+      merge()
+  else:
+    merge(sys.argv[2])
