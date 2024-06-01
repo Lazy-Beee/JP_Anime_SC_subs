@@ -1,4 +1,4 @@
-import requests
+import sys, os, requests
 
 api_smms = "https://sm.ms/api/v2/upload"
 key_smms = ""
@@ -46,15 +46,7 @@ def upload_image(file_path, host='imgbb'):
         print("Failed to upload image:", response.json()["message"])
         return "[upload failed]"
     
-def gen_cprimg():
-    # read inputs
-    image_list = []
-    image_input = input("Images to upload: ")
-    while (len(image_input) > 0):
-        image_input, image = read_first_path(image_input)
-        image_list.append(image)
-    image_list.sort()
-
+def gen_cprimg(image_list):
     # upload images
     url_list = []
     print("")
@@ -80,6 +72,26 @@ def gen_cprimg():
     print(output_text, "\n")
 
 if __name__ == "__main__":
-    while True:
-        gen_cprimg()
+    if len(sys.argv) < 2:
+        while True:
+            image_list = []
+            image_input = input("Images to upload: ")
+            while (len(image_input) > 0):
+                image_input, image = read_first_path(image_input)
+                image_list.append(image)
+            image_list.sort()
+            gen_cprimg(image_list)
+    else:
+        folder_path = sys.argv[1]
+        if not os.path.exists(folder_path):
+            print(f"The folder '{folder_path}' does not exist.")
+        elif not os.path.isdir(folder_path):
+            print(f"'{folder_path}' is not a folder.")
+        else:
+            absolute_paths = []
+            for filename in os.listdir(folder_path):
+                file_path = os.path.join(folder_path, filename)
+                if os.path.isfile(file_path):
+                    absolute_paths.append(os.path.abspath(file_path))
+            gen_cprimg(absolute_paths)
   
