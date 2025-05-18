@@ -98,8 +98,8 @@ def extract_and_upload_frames(video_filepath, frame_numbers_list, api_key):
     try:
         frame_numbers = sorted(list(set(f for f in frame_numbers_list if f >= 0)))
         if not frame_numbers:
-             print("No valid non-negative frame numbers provided.")
-             return
+             frame_numbers = (10000, 20000, 30000)
+             print("No valid non-negative frame numbers provided, using default frames (10000, 20000, 30000).")
     except TypeError:
         print("Error: Frame numbers must be integers.")
         return
@@ -160,7 +160,7 @@ def main():
     )
     parser.add_argument("filepath", help="Path to the video file.")
     parser.add_argument(
-        "frames", type=int, nargs='+',
+        "frames", type=int, nargs='*',
         help="Space-separated list of 0-indexed frame numbers (e.g., 0 100 250)."
     )
 
