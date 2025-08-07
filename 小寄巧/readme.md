@@ -1,5 +1,7 @@
 # 番剧BT/PT相关脚本
+## Folders
 - `scheduled tasks`：做种机定时脚本
+## Files
 - `HEVC-Q18-10bit.xml`：ShanaEncoder二压设置
 - `ffmpeg_cfr.py`：ffmpeg二压脚本
 - `Skyey_mktorrent.py`：批量制作天雪种子，移除MD5文件并打包zip
