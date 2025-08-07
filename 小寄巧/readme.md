@@ -1,0 +1,10 @@
+# 番剧/BT/PT相关脚本
+- `HEVC-Q18-10bit.xml`：ShanaEncoder二压设置
+- `ffmpeg_cfr.py`：ffmpeg二压脚本
+- `Skyey_mktorrent.py`：批量制作天雪种子，移除MD5文件并打包zip
+- `filename_replace.py`：批量重命名文件
+- `font_subset_merge_v2.py`：批量混流脚本v2
+- `font_subset_merge_v3.py`：批量混流脚本v3
+- `remove_torrent.py`：检测不同站点相同种子，统计做种数并选择移除
+- `image_upload.py`：批量上传截图至smms或imgbb并导出为bbcode comapre格式
+- `screenshot_upload.py`：视频截图压缩并上传至imgbb
